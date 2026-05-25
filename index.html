@@ -32,185 +32,93 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 4px; }
 
-  /* Layout */
   #app { display: flex; height: 100vh; overflow: hidden; position: relative; }
 
-  /* Sidebar */
   #sidebar {
-    width: var(--sidebar-w);
-    min-width: var(--sidebar-w);
-    height: 100vh;
-    background: var(--navy-deep);
-    border-right: 1px solid var(--navy-border);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    flex-shrink: 0;
+    width: var(--sidebar-w); min-width: var(--sidebar-w); height: 100vh;
+    background: var(--navy-deep); border-right: 1px solid var(--navy-border);
+    display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
     transition: transform 0.25s ease;
   }
 
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 22px 18px 16px;
-    border-bottom: 1px solid var(--navy-border);
-  }
+  .logo-area { display: flex; align-items: center; gap: 10px; padding: 22px 18px 16px; border-bottom: 1px solid var(--navy-border); }
   .logo-icon { font-size: 28px; }
   .logo-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.12em; }
   .logo-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 0.04em; }
   #total-badge { margin-left: auto; background: var(--blue); color: var(--white); border-radius: 999px; font-size: 11px; font-weight: 700; padding: 2px 8px; display: none; }
 
-  .search-wrap {
-    display: flex; align-items: center; gap: 8px;
-    margin: 12px 14px 8px;
-    background: var(--navy-mid);
-    border-radius: 10px;
-    padding: 8px 12px;
-    border: 1px solid var(--navy-border);
-  }
-  .search-wrap input {
-    flex: 1; background: transparent; border: none; outline: none;
-    color: var(--white); font-size: 13px; font-family: inherit;
-  }
+  .search-wrap { display: flex; align-items: center; gap: 8px; margin: 12px 14px 8px; background: var(--navy-mid); border-radius: 10px; padding: 8px 12px; border: 1px solid var(--navy-border); }
+  .search-wrap input { flex: 1; background: transparent; border: none; outline: none; color: var(--white); font-size: 13px; font-family: inherit; }
   .search-wrap input::placeholder { color: var(--text-dim); }
 
   .stats-row { display: flex; gap: 8px; padding: 0 14px 10px; }
-  .stat-pill {
-    background: var(--navy-mid); border-radius: 8px; padding: 4px 10px;
-    font-size: 12px; border: 1px solid var(--navy-border);
-  }
+  .stat-pill { background: var(--navy-mid); border-radius: 8px; padding: 4px 10px; font-size: 12px; border: 1px solid var(--navy-border); }
   .stat-pill span.val { font-weight: 600; }
   .stat-pill span.lbl { color: var(--text-dim); margin-left: 4px; }
 
   #thread-list { flex: 1; overflow-y: auto; padding: 4px 8px; }
-
   .empty-state { text-align: center; color: var(--text-dim); padding: 40px 20px; font-size: 13px; }
 
   .thread-item {
-    display: flex; align-items: center; gap: 10px;
-    width: 100%; background: transparent; border: none; border-radius: 10px;
-    padding: 10px; cursor: pointer; text-align: left; color: var(--white);
-    margin-bottom: 2px; transition: background 0.15s;
-    border-left: 3px solid transparent;
+    display: flex; align-items: center; gap: 10px; width: 100%; background: transparent;
+    border: none; border-radius: 10px; padding: 10px; cursor: pointer; text-align: left;
+    color: var(--white); margin-bottom: 2px; transition: background 0.15s; border-left: 3px solid transparent;
   }
   .thread-item:hover { background: var(--w08); }
   .thread-item.active { background: var(--navy-card); border-left-color: var(--blue); padding-left: 7px; }
 
-  .thread-avatar {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--navy-border); display: flex; align-items: center;
-    justify-content: center; font-weight: 700; font-size: 13px;
-    letter-spacing: 0.05em; flex-shrink: 0; color: var(--w60);
-  }
+  .thread-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; color: var(--w60); }
   .thread-info { flex: 1; min-width: 0; }
   .thread-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-  .thread-name { font-weight: 600; font-size: 13px; }
-  .thread-time { font-size: 11px; color: var(--text-dim); }
-  .thread-preview { font-size: 12px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px; }
+  .thread-name { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
+  .thread-time { font-size: 11px; color: var(--text-dim); flex-shrink: 0; margin-left: 4px; }
+  .thread-preview { font-size: 12px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
   .unread-badge { background: var(--blue); color: var(--white); border-radius: 999px; font-size: 11px; font-weight: 700; padding: 2px 7px; flex-shrink: 0; }
 
-  /* Main */
   #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--navy-deepest); }
 
-  /* Empty chat */
   #empty-chat { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px; }
   #empty-chat .big-icon { font-size: 52px; }
   #empty-chat h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; }
   #empty-chat p { font-size: 14px; color: var(--text-dim); text-align: center; max-width: 300px; line-height: 1.7; }
 
-  /* Chat panel */
   #chat-panel { display: none; flex-direction: column; height: 100%; overflow: hidden; }
   #chat-panel.visible { display: flex; }
 
-  /* Chat header */
-  #chat-header {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--navy-border);
-    background: var(--navy-deep); flex-shrink: 0;
-  }
-  #back-btn {
-    background: var(--w08); border: none; border-radius: 8px; color: var(--white);
-    font-size: 18px; width: 34px; height: 34px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .chat-header-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: var(--navy-border); display: flex; align-items: center;
-    justify-content: center; font-weight: 700; font-size: 14px; color: var(--w60); flex-shrink: 0;
-  }
+  #chat-header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--navy-border); background: var(--navy-deep); flex-shrink: 0; }
+  #back-btn { background: var(--w08); border: none; border-radius: 8px; color: var(--white); font-size: 18px; width: 34px; height: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .chat-header-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: var(--w60); flex-shrink: 0; }
   #chat-header-name { font-weight: 700; font-size: 15px; font-family: 'Syne', sans-serif; }
   #chat-header-id { font-size: 11px; color: var(--text-dim); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
-  .online-chip {
-    display: flex; align-items: center; gap: 5px;
-    background: rgba(76,175,80,0.15); border-radius: 999px;
-    padding: 4px 10px; font-size: 12px; color: var(--green); font-weight: 600;
-    margin-left: auto; flex-shrink: 0;
-  }
+  .online-chip { display: flex; align-items: center; gap: 5px; background: rgba(76,175,80,0.15); border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--green); font-weight: 600; margin-left: auto; flex-shrink: 0; }
   .online-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
 
-  /* Messages */
   #message-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
 
   .bubble-row { display: flex; align-items: flex-end; gap: 8px; }
   .bubble-row.dev { justify-content: flex-end; }
   .bubble-row.user { justify-content: flex-start; }
-
-  .bubble-avatar {
-    width: 30px; height: 30px; border-radius: 50%;
-    background: var(--navy-border); display: flex; align-items: center;
-    justify-content: center; font-size: 12px; font-weight: 700; color: var(--w60); flex-shrink: 0;
-  }
+  .bubble-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--navy-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--w60); flex-shrink: 0; }
   .bubble-avatar.dev-av { background: var(--blue); }
-
   .bubble-content { max-width: 70%; }
   .bubble-name { font-size: 11px; color: var(--text-dim); margin-bottom: 3px; padding-left: 4px; font-weight: 600; }
-
-  .bubble {
-    border-radius: 16px; padding: 10px 14px;
-    font-size: 14px; line-height: 1.55; word-break: break-word;
-  }
+  .bubble { border-radius: 16px; padding: 10px 14px; font-size: 14px; line-height: 1.55; word-break: break-word; }
   .bubble.user-bubble { background: var(--navy-card); color: var(--white); border-top-left-radius: 4px; }
   .bubble.dev-bubble { background: var(--blue); color: var(--white); border-top-right-radius: 4px; }
-
   .bubble-time { font-size: 10px; color: var(--text-dim); margin-top: 3px; padding: 0 4px; }
   .bubble-time.right { text-align: right; }
   .bubble-time .dev-label { color: var(--blue-light); margin-right: 4px; }
 
-  /* Input */
-  #input-bar {
-    display: flex; gap: 10px; padding: 12px 16px;
-    border-top: 1px solid var(--navy-border);
-    background: var(--navy-deep); align-items: flex-end; flex-shrink: 0;
-  }
-  #input-wrap {
-    flex: 1; background: var(--navy-mid); border-radius: 14px;
-    border: 1px solid var(--navy-border); padding: 10px 14px 6px;
-  }
-  #input-wrap textarea {
-    width: 100%; background: transparent; border: none; outline: none;
-    color: var(--white); font-size: 14px; font-family: inherit;
-    resize: none; line-height: 1.5; max-height: 120px; overflow-y: auto;
-  }
+  #input-bar { display: flex; gap: 10px; padding: 12px 16px; border-top: 1px solid var(--navy-border); background: var(--navy-deep); align-items: flex-end; flex-shrink: 0; }
+  #input-wrap { flex: 1; background: var(--navy-mid); border-radius: 14px; border: 1px solid var(--navy-border); padding: 10px 14px 6px; }
+  #input-wrap textarea { width: 100%; background: transparent; border: none; outline: none; color: var(--white); font-size: 14px; font-family: inherit; resize: none; line-height: 1.5; max-height: 120px; overflow-y: auto; }
   #input-wrap textarea::placeholder { color: var(--text-dim); }
   .input-hint { font-size: 10px; color: var(--text-dim); margin-top: 3px; opacity: 0.6; }
-
-  #send-btn {
-    width: 44px; height: 44px; border-radius: 50%; background: var(--blue);
-    border: none; color: var(--white); font-size: 20px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; transition: opacity 0.2s; flex-shrink: 0;
-  }
+  #send-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--blue); border: none; color: var(--white); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; transition: opacity 0.2s; flex-shrink: 0; }
   #send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* Mobile */
   #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9; }
-  #mobile-open-btn {
-    margin-top: 8px; background: var(--blue); border: none; border-radius: 10px;
-    color: var(--white); padding: 10px 24px; cursor: pointer;
-    font-family: inherit; font-size: 14px; font-weight: 600; display: none;
-  }
+  #mobile-open-btn { margin-top: 8px; background: var(--blue); border: none; border-radius: 10px; color: var(--white); padding: 10px 24px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; display: none; }
 
   @media (max-width: 640px) {
     #sidebar { position: fixed; top: 0; left: 0; z-index: 10; transform: translateX(-100%); }
@@ -220,15 +128,12 @@
     #back-btn { display: flex; }
     #chat-header-id { max-width: 120px; }
   }
-  @media (min-width: 641px) {
-    #back-btn { display: none; }
-  }
+  @media (min-width: 641px) { #back-btn { display: none; } }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- Sidebar -->
   <aside id="sidebar">
     <div class="logo-area">
       <span class="logo-icon">🐧</span>
@@ -238,29 +143,20 @@
       </div>
       <span id="total-badge">0</span>
     </div>
-
     <div class="search-wrap">
       <span style="font-size:13px;opacity:0.5">🔍</span>
-      <input type="text" id="search-input" placeholder="Search users…" />
+      <input type="text" id="search-input" placeholder="Search by email…" />
     </div>
-
     <div class="stats-row">
       <div class="stat-pill"><span class="val" id="stat-users" style="color:var(--green)">0</span><span class="lbl">users</span></div>
       <div class="stat-pill"><span class="val" id="stat-msgs" style="color:var(--blue-light)">0</span><span class="lbl">messages</span></div>
     </div>
-
-    <div id="thread-list">
-      <div class="empty-state">Loading…</div>
-    </div>
+    <div id="thread-list"><div class="empty-state">Loading…</div></div>
   </aside>
 
-  <!-- Overlay (mobile) -->
   <div id="overlay"></div>
 
-  <!-- Main -->
   <main id="main">
-
-    <!-- Empty state -->
     <div id="empty-chat">
       <div class="big-icon">🛠️</div>
       <h2>Select a conversation</h2>
@@ -268,7 +164,6 @@
       <button id="mobile-open-btn">View conversations</button>
     </div>
 
-    <!-- Chat panel -->
     <div id="chat-panel">
       <header id="chat-header">
         <button id="back-btn">←</button>
@@ -279,9 +174,7 @@
         </div>
         <div class="online-chip"><div class="online-dot"></div> Active</div>
       </header>
-
       <div id="message-area"></div>
-
       <div id="input-bar">
         <div id="input-wrap">
           <textarea id="message-input" placeholder="Reply as developer…" rows="1"></textarea>
@@ -290,18 +183,22 @@
         <button id="send-btn" disabled>↑</button>
       </div>
     </div>
-
   </main>
 </div>
 
 <script>
-  // ── State ──────────────────────────────────────────────────────────────────
   let allMessages = []
   let selectedUser = null
-  let refreshInterval = null
+  let selectedEmail = null
 
-  // ── Helpers ────────────────────────────────────────────────────────────────
-  function shortId(id) { return id.slice(0, 8).toUpperCase() }
+  function emailInitials(email) {
+    if (!email) return '??'
+    return email.slice(0, 2).toUpperCase()
+  }
+
+  function displayName(email, user_id) {
+    return email || user_id.slice(0, 8).toUpperCase()
+  }
 
   function formatTime(iso) {
     try {
@@ -320,7 +217,6 @@
     catch { return '' }
   }
 
-  // ── API calls ──────────────────────────────────────────────────────────────
   async function fetchAll() {
     try {
       const res = await fetch('/api/messages')
@@ -339,13 +235,22 @@
     await fetchAll()
   }
 
-  // ── Build threads ──────────────────────────────────────────────────────────
   function buildThreads() {
     const map = new Map()
     for (const msg of allMessages) {
       const ex = map.get(msg.user_id)
       if (!ex || msg.created_at > ex.lastTime) {
-        map.set(msg.user_id, { user_id: msg.user_id, lastMessage: msg.message, lastTime: msg.created_at, unread: 0 })
+        map.set(msg.user_id, {
+          user_id: msg.user_id,
+          email: msg.email || null,
+          lastMessage: msg.message,
+          lastTime: msg.created_at,
+          unread: 0
+        })
+      }
+      // always keep email if available
+      if (msg.email && map.has(msg.user_id)) {
+        map.get(msg.user_id).email = msg.email
       }
     }
     for (const [uid, thread] of map) {
@@ -357,19 +262,19 @@
     return Array.from(map.values()).sort((a,b) => b.lastTime.localeCompare(a.lastTime))
   }
 
-  // ── Render threads ─────────────────────────────────────────────────────────
   function renderThreads() {
     const threads = buildThreads()
     const search  = document.getElementById('search-input').value.toLowerCase()
     const filtered = threads.filter(t =>
-      !search || t.user_id.toLowerCase().includes(search) || t.lastMessage.toLowerCase().includes(search)
+      !search ||
+      (t.email && t.email.toLowerCase().includes(search)) ||
+      t.user_id.toLowerCase().includes(search) ||
+      t.lastMessage.toLowerCase().includes(search)
     )
 
-    // stats
     document.getElementById('stat-users').textContent = threads.length
     document.getElementById('stat-msgs').textContent  = allMessages.length
 
-    // total unread badge
     const totalUnread = threads.reduce((s,t) => s + t.unread, 0)
     const badge = document.getElementById('total-badge')
     badge.textContent = totalUnread
@@ -382,11 +287,11 @@
     }
 
     list.innerHTML = filtered.map(t => `
-      <button class="thread-item ${selectedUser === t.user_id ? 'active' : ''}" data-uid="${t.user_id}">
-        <div class="thread-avatar">${shortId(t.user_id).slice(0,2)}</div>
+      <button class="thread-item ${selectedUser === t.user_id ? 'active' : ''}" data-uid="${t.user_id}" data-email="${t.email || ''}">
+        <div class="thread-avatar">${emailInitials(t.email)}</div>
         <div class="thread-info">
           <div class="thread-top">
-            <span class="thread-name">User ${shortId(t.user_id)}</span>
+            <span class="thread-name">${escHtml(displayName(t.email, t.user_id))}</span>
             <span class="thread-time">${formatTime(t.lastTime)}</span>
           </div>
           <div class="thread-preview">${escHtml(t.lastMessage)}</div>
@@ -396,28 +301,30 @@
     `).join('')
 
     list.querySelectorAll('.thread-item').forEach(btn => {
-      btn.addEventListener('click', () => selectUser(btn.dataset.uid))
+      btn.addEventListener('click', () => selectUser(btn.dataset.uid, btn.dataset.email))
     })
   }
 
-  // ── Select user ────────────────────────────────────────────────────────────
-  function selectUser(uid) {
+  function selectUser(uid, email) {
     selectedUser = uid
+    selectedEmail = email || null
+    const name = displayName(email, uid)
     document.getElementById('empty-chat').style.display = 'none'
     document.getElementById('chat-panel').classList.add('visible')
-    document.getElementById('chat-header-name').textContent = `User ${shortId(uid)}`
-    document.getElementById('chat-header-id').textContent   = uid
-    document.getElementById('chat-header-avatar').textContent = shortId(uid).slice(0,2)
+    document.getElementById('chat-header-name').textContent = name
+    document.getElementById('chat-header-id').textContent   = email ? uid : ''
+    document.getElementById('chat-header-avatar').textContent = emailInitials(email)
     renderThreads()
     renderChat()
     closeSidebar()
   }
 
-  // ── Render chat ────────────────────────────────────────────────────────────
   function renderChat() {
     const msgs = allMessages.filter(m => m.user_id === selectedUser)
     const area = document.getElementById('message-area')
     const wasAtBottom = area.scrollHeight - area.scrollTop - area.clientHeight < 60
+
+    const name = displayName(selectedEmail, selectedUser)
 
     area.innerHTML = msgs.length === 0
       ? `<div class="empty-state">No messages yet.</div>`
@@ -425,9 +332,9 @@
           const isDev = msg.is_developer
           return `
             <div class="bubble-row ${isDev ? 'dev' : 'user'}">
-              ${!isDev ? `<div class="bubble-avatar">${shortId(msg.user_id).slice(0,2)}</div>` : ''}
+              ${!isDev ? `<div class="bubble-avatar">${emailInitials(msg.email)}</div>` : ''}
               <div class="bubble-content">
-                ${!isDev ? `<div class="bubble-name">User ${shortId(msg.user_id)}</div>` : ''}
+                ${!isDev ? `<div class="bubble-name">${escHtml(name)}</div>` : ''}
                 <div class="bubble ${isDev ? 'dev-bubble' : 'user-bubble'}">${escHtml(msg.message)}</div>
                 <div class="bubble-time ${isDev ? 'right' : ''}">
                   ${isDev ? '<span class="dev-label">You ·</span>' : ''}
@@ -442,12 +349,11 @@
     if (wasAtBottom) area.scrollTop = area.scrollHeight
   }
 
-  // ── XSS protection ─────────────────────────────────────────────────────────
   function escHtml(str) {
+    if (!str) return ''
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
   }
 
-  // ── Send ────────────────────────────────────────────────────────────────────
   const input   = document.getElementById('message-input')
   const sendBtn = document.getElementById('send-btn')
 
@@ -471,7 +377,6 @@
     await sendReply(text)
   }
 
-  // ── Mobile sidebar ──────────────────────────────────────────────────────────
   function openSidebar() {
     document.getElementById('sidebar').classList.add('open')
     document.getElementById('overlay').classList.add('show')
@@ -486,7 +391,6 @@
   document.getElementById('overlay').addEventListener('click', closeSidebar)
   document.getElementById('search-input').addEventListener('input', renderThreads)
 
-  // ── Boot ────────────────────────────────────────────────────────────────────
   fetchAll()
   setInterval(fetchAll, 4000)
 </script>
