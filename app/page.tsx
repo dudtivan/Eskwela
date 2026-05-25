@@ -90,7 +90,7 @@ export default function Dashboard() {
       }
     }
     // count unread (user messages with no dev reply after them)
-    for (const [uid, thread] of map) {
+    for (const [uid, thread] of map.entries()) {
       const userMsgs = allMessages.filter(m => m.user_id === uid && !m.is_developer)
       const devMsgs = allMessages.filter(m => m.user_id === uid && m.is_developer)
       const lastDevTime = devMsgs.length ? devMsgs[devMsgs.length - 1].created_at : ''
