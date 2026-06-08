@@ -579,7 +579,7 @@
 <nav>
   <a href="#" class="nav-logo">
     <div class="logo-img">
-      <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky mascot" />
+      <img src="/penguin.png" alt="Esky mascot" />
     </div>
     Esk<span class="highlight">wela</span>
   </a>
@@ -629,14 +629,25 @@
     document.getElementById('adminPinInput').value = '';
     document.getElementById('adminPinError').style.display = 'none';
   }
-  function checkAdminPin() {
+  async function checkAdminPin() {
     var pin = document.getElementById('adminPinInput').value;
-    if (pin === '54321') {
-      window.location.href = '/index.html';
-    } else {
+    try {
+      var res = await fetch('/api/admin-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: pin })
+      });
+      var data = await res.json();
+      if (data.ok) {
+        window.location.href = '/index.html';
+      } else {
+        document.getElementById('adminPinError').style.display = 'block';
+        document.getElementById('adminPinInput').value = '';
+        document.getElementById('adminPinInput').focus();
+      }
+    } catch(e) {
       document.getElementById('adminPinError').style.display = 'block';
       document.getElementById('adminPinInput').value = '';
-      document.getElementById('adminPinInput').focus();
     }
   }
   document.getElementById('adminModal').addEventListener('click', function(e) {
@@ -696,7 +707,7 @@
         <div class="name">Esky says hi!</div>
         <div class="msg">"Study smarter, not harder. Let me handle your schedule while you focus on learning!"</div>
       </div>
-      <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky the penguin mascot" class="mascot-img" />
+      <img src="/penguin.png" alt="Esky the penguin mascot" class="mascot-img" />
       <div class="mascot-tag">Esky — Your Study Buddy</div>
     </div>
   </div>
@@ -775,6 +786,20 @@
         <div class="feat-desc">50 rotating motivational quotes greet you every time you open the app. Small nudges that add up to big momentum throughout the semester.</div>
         <span class="feat-tag gold"><span data-lucide="star" style="width:11px;height:11px;"></span> Motivation</span>
       </div>
+
+      <div class="feat-card reveal" style="border-color:rgba(99,102,241,0.25);background:linear-gradient(135deg,rgba(99,102,241,0.05) 0%,transparent 100%);">
+        <div class="feat-icon" style="background:rgba(99,102,241,0.12);color:#818cf8;"><span data-lucide="scan" style="width:24px;height:24px;"></span></div>
+        <div class="feat-title">AI Schedule Scanner <span style="font-size:10px;background:rgba(99,102,241,0.15);color:#818cf8;padding:2px 7px;border-radius:99px;font-weight:700;margin-left:6px;vertical-align:middle;">Coming Soon</span></div>
+        <div class="feat-desc">Snap a photo of your printed class schedule or a screenshot — Eskwela's AI will read it and automatically import all your subjects, times, and rooms.</div>
+        <span class="feat-tag" style="background:rgba(99,102,241,0.1);color:#818cf8;border-color:rgba(99,102,241,0.2);"><span data-lucide="camera" style="width:11px;height:11px;"></span> AI-Powered</span>
+      </div>
+
+      <div class="feat-card reveal" style="border-color:rgba(20,184,166,0.25);background:linear-gradient(135deg,rgba(20,184,166,0.05) 0%,transparent 100%);">
+        <div class="feat-icon" style="background:rgba(20,184,166,0.12);color:#2dd4bf;"><span data-lucide="watch" style="width:24px;height:24px;"></span></div>
+        <div class="feat-title">Smartwatch Reminders <span style="font-size:10px;background:rgba(20,184,166,0.15);color:#2dd4bf;padding:2px 7px;border-radius:99px;font-weight:700;margin-left:6px;vertical-align:middle;">Coming Soon</span></div>
+        <div class="feat-desc">Get a buzz on your wrist before class starts. Eskwela syncs with Wear OS and Galaxy Watch to send class reminders right to your smartwatch.</div>
+        <span class="feat-tag" style="background:rgba(20,184,166,0.1);color:#2dd4bf;border-color:rgba(20,184,166,0.2);"><span data-lucide="bluetooth" style="width:11px;height:11px;"></span> Wearables</span>
+      </div>
     </div>
   </div>
 </section>
@@ -809,7 +834,7 @@
           <div class="notch"></div>
           <div class="phone-screen">
             <div class="sim-header">
-              <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky" class="sim-penguin" />
+              <img src="/penguin.png" alt="Esky" class="sim-penguin" />
               <div class="sim-bubble">
                 <div class="sim-hi">Hello, Ivan!</div>
                 <div class="sim-msg">Data Structures starts in 12 mins.</div>
@@ -872,7 +897,7 @@
             <div class="sim-chat-header">
               <span class="back" data-lucide="arrow-left" style="width:16px;height:16px;display:inline-block;color:rgba(255,255,255,0.7);"></span>
               <div class="avatar">
-                <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky" />
+                <img src="/penguin.png" alt="Esky" />
               </div>
               <div>
                 <div class="title">Esky AI</div>
@@ -1065,7 +1090,7 @@
 <!-- BETA CTA -->
 <section class="beta-section" id="beta">
   <div class="max-w" style="position:relative;z-index:1;">
-    <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky" class="beta-mascot" />
+    <img src="/penguin.png" alt="Esky" class="beta-mascot" />
     <h2>Be Among the First.<br /><em>Join the Beta.</em></h2>
     <p class="sub">Eskwela is not yet on the Play Store — but we're recruiting beta testers right now. Help shape the app before it launches publicly.</p>
 
@@ -1089,7 +1114,7 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="logo">
-        <img src="PENGUIN_SRC_PLACEHOLDER" alt="Esky" />
+        <img src="/penguin.png" alt="Esky" />
         Esk<span>wela</span>
       </div>
       <p>The smart student planner built for Filipino learners. Plan, learn, and achieve — one class at a time.</p>
