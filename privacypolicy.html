@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — Eskwela</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%230D47A1'/><stop offset='1' stop-color='%2342A5F5'/></linearGradient></defs><rect width='32' height='32' rx='9' fill='url(%23g)'/><text x='16' y='22' font-size='17' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' fill='white'>E</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --nav-bg:      #050D1A;
+  --blue:        #1565C0;
+  --blue-deep:   #0D47A1;
+  --blue-light:  #42A5F5;
+  --ice-white:   #F0F6FF;
+  --ice-pale:    #E3F2FD;
+  --text-dark:   #050D1A;
+  --text-mid:    #2A5A8A;
+  --text-light:  #5B8DB8;
+  --border:      rgba(21,101,192,0.12);
+  --font:        'Nunito', system-ui, sans-serif;
+}
+
+html, body {
+  background: var(--ice-white);
+  color: var(--text-dark);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+nav {
+  background: var(--nav-bg);
+  padding: 0 24px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo-mark {
+  width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-light) 100%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(13,71,161,0.5);
+  font-size: 17px; font-weight: 900; color: #fff; letter-spacing: -0.02em;
+}
+.logo-title { font-size: 15px; font-weight: 900; color: #fff; letter-spacing: 0.06em; }
+.logo-sub   { font-size: 10px; color: var(--text-light); margin-top: 1px; }
+.back-link  {
+  margin-left: auto; font-size: 12px; font-weight: 700; color: var(--blue-light);
+  text-decoration: none; letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 5px;
+}
+.back-link:hover { color: #fff; }
+
+.hero-band {
+  background: linear-gradient(135deg, var(--blue-deep) 0%, #1976D2 60%, var(--blue-light) 100%);
+  padding: 48px 24px 40px;
+  text-align: center;
+  color: #fff;
+}
+.hero-band .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 99px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  padding: 4px 14px; margin-bottom: 14px; text-transform: uppercase;
+}
+.hero-band h1 {
+  font-size: clamp(26px, 5vw, 38px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.hero-band p {
+  font-size: 14px;
+  opacity: 0.8;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.section-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(21,101,192,0.05);
+}
+.section-card h2 {
+  font-size: 16px; font-weight: 900;
+  color: var(--blue-deep);
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 9px;
+}
+.section-card h2 .icon {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  background: var(--ice-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.section-card p { color: var(--text-mid); font-size: 14px; margin-bottom: 10px; }
+.section-card p:last-child { margin-bottom: 0; }
+
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px;
+}
+.data-table th {
+  text-align: left; padding: 8px 12px;
+  background: var(--ice-pale); color: var(--blue-deep);
+  font-weight: 800; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.data-table th:first-child { border-radius: 8px 0 0 8px; }
+.data-table th:last-child  { border-radius: 0 8px 8px 0; }
+.data-table td {
+  padding: 9px 12px; border-bottom: 1px solid var(--border);
+  color: var(--text-mid); vertical-align: top;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table td strong { color: var(--text-dark); font-weight: 700; }
+
+.tp-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.tp-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 14px; border-radius: 12px;
+  background: var(--ice-pale); border: 1px solid var(--border);
+}
+.tp-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue-light); flex-shrink: 0; margin-top: 6px;
+}
+.tp-item strong { font-size: 13px; font-weight: 800; color: var(--text-dark); display: block; }
+.tp-item span   { font-size: 12px; color: var(--text-light); }
+
+.contact-card {
+  background: linear-gradient(135deg, var(--blue-deep) 0%, #1976D2 100%);
+  border-radius: 18px; padding: 28px 32px;
+  color: #fff; margin-bottom: 20px;
+  text-align: center;
+}
+.contact-card h2 { font-size: 16px; font-weight: 900; margin-bottom: 8px; }
+.contact-card p  { font-size: 13px; opacity: 0.85; margin-bottom: 16px; }
+.contact-card a {
+  display: inline-block;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3);
+  color: #fff; text-decoration: none;
+  border-radius: 10px; padding: 9px 20px;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.03em;
+  transition: background 0.15s;
+}
+.contact-card a:hover { background: rgba(255,255,255,0.28); }
+
+footer {
+  text-align: center; font-size: 12px; color: var(--text-light);
+  padding: 0 24px 32px;
+}
+footer a { color: var(--blue); text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-mark">E</div>
+  <div>
+    <div class="logo-title">ESKWELA</div>
+    <div class="logo-sub">Student Scheduler</div>
+  </div>
+  <a class="back-link" href="eskwela.html">← Back to Home</a>
+</nav>
+
+<div class="hero-band">
+  <div class="badge">Legal</div>
+  <h1>Privacy Policy</h1>
+  <p>How Eskwela collects, uses, and protects your information.</p>
+</div>
+
+<main>
+
+  <!-- Overview -->
+  <div class="section-card">
+    <h2><span class="icon">📋</span> Overview</h2>
+    <p><strong>Effective date:</strong> June 8, 2025 &nbsp;·&nbsp; <strong>Last updated:</strong> June 8, 2026</p>
+    <p>Eskwela ("the App") is a student scheduler built for Filipino students, developed by <strong>Ivan</strong> (independent developer, Minglanilla, Cebu, Philippines). This policy explains what data we collect when you use the Eskwela Android app, how we use it, and who we share it with. By using the App, you agree to this policy.</p>
+    <p>This App is intended for users <strong>13 years of age or older</strong>. We do not knowingly collect personal data from children under 13. If you believe a child under 13 has provided us with personal information, please contact us so we can delete it.</p>
+  </div>
+
+  <!-- Data collected -->
+  <div class="section-card">
+    <h2><span class="icon">📦</span> Data We Collect</h2>
+    <p>We collect only what's necessary to provide the App's features:</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Data</th><th>Why we collect it</th><th>Where it's stored</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google account (name, email, profile photo)</strong></td>
+          <td>Sign-in via Google OAuth — so you have a personal account</td>
+          <td>Supabase (our database)</td>
+        </tr>
+        <tr>
+          <td><strong>Display name &amp; user code</strong></td>
+          <td>Used for your profile and so friends can find and add you by name or code</td>
+          <td>Supabase</td>
+        </tr>
+        <tr>
+          <td><strong>Class schedule &amp; tasks</strong></td>
+          <td>Core feature — saving your schedule and to-do items locally on your device</td>
+          <td>Device only (SharedPreferences / local storage)</td>
+        </tr>
+        <tr>
+          <td><strong>Esky AI chat history</strong></td>
+          <td>Saved locally so your conversation persists between sessions</td>
+          <td>Device only (SharedPreferences)</td>
+        </tr>
+        <tr>
+          <td><strong>Friends list &amp; friend requests</strong></td>
+          <td>To connect with other Eskwela users and manage friend requests</td>
+          <td>Supabase</td>
+        </tr>
+        <tr>
+          <td><strong>Friend-to-friend chat messages</strong></td>
+          <td>Real-time messaging between friends inside the App</td>
+          <td>Supabase</td>
+        </tr>
+        <tr>
+          <td><strong>Developer support messages</strong></td>
+          <td>When you send a message to the developer through the in-app chat feature; the developer can reply directly</td>
+          <td>Supabase</td>
+        </tr>
+        <tr>
+          <td><strong>Esky AI chat messages (Groq)</strong></td>
+          <td>Sent to Groq to generate a response. Groq does not retain inference inputs/outputs by default, but may temporarily log them for up to 30 days if needed to troubleshoot reliability issues or investigate suspected abuse — subject to <a href="https://groq.com/privacy-policy/" target="_blank" style="color:var(--blue);">Groq's privacy policy</a>.</td>
+          <td>Not stored by us (Groq only)</td>
+        </tr>
+        <tr>
+          <td><strong>Schedule image (Gemini import)</strong></td>
+          <td>If you use the photo-to-schedule import feature, the image is sent to Gemini for parsing</td>
+          <td>Not stored by us (Gemini only)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- How we use data -->
+  <div class="section-card">
+    <h2><span class="icon">⚙️</span> How We Use Your Data</h2>
+    <p>Your data is used solely to operate Eskwela's features:</p>
+    <p>• To authenticate you and maintain your account<br>
+       • To save your class schedule, tasks, and Esky chat history locally on your device<br>
+       • To power the Friends feature — finding users, sending/accepting requests, and messaging<br>
+       • To enable the Developer Support chat so you can contact us and receive replies<br>
+       • To power the Esky AI tutor (chat messages are sent to Groq per session; Groq does not retain them by default but may log them temporarily per their policy)<br>
+       • To allow you to import schedules from photos via Gemini<br>
+       • To display Philippine public holidays in your calendar (fetched from the Nager.Date API — no personal data is sent)</p>
+    <p>We do <strong>not</strong> sell your data, use it for advertising, or use it for any purpose beyond operating the App.</p>
+  </div>
+
+  <!-- Third parties -->
+  <div class="section-card">
+    <h2><span class="icon">🔗</span> Third-Party Services</h2>
+    <p>The App uses the following third-party services. Each has its own privacy policy:</p>
+    <ul class="tp-list">
+      <li class="tp-item">
+        <div class="tp-dot"></div>
+        <div>
+          <strong>Supabase</strong>
+          <span>Stores your account info, display name, user code, friends list, friend chat messages, and developer support messages. <a href="https://supabase.com/privacy" target="_blank" style="color:var(--blue);">supabase.com/privacy</a></span>
+        </div>
+      </li>
+      <li class="tp-item">
+        <div class="tp-dot"></div>
+        <div>
+          <strong>Google OAuth</strong>
+          <span>Handles sign-in. Your Google profile info is accessed for account creation. <a href="https://policies.google.com/privacy" target="_blank" style="color:var(--blue);">policies.google.com/privacy</a></span>
+        </div>
+      </li>
+      <li class="tp-item">
+        <div class="tp-dot"></div>
+        <div>
+          <strong>Groq API</strong>
+          <span>Processes your Esky AI chat messages to generate responses. Groq does not retain inference inputs/outputs by default. However, Groq may temporarily log inputs and outputs for up to 30 days when troubleshooting reliability issues or investigating suspected abuse. You can learn more at <a href="https://groq.com/privacy-policy/" target="_blank" style="color:var(--blue);">groq.com/privacy-policy</a> and <a href="https://console.groq.com/docs/your-data" target="_blank" style="color:var(--blue);">console.groq.com/docs/your-data</a>.</span>
+        </div>
+      </li>
+      <li class="tp-item">
+        <div class="tp-dot"></div>
+        <div>
+          <strong>Google Gemini API</strong>
+          <span>Used for the photo schedule import feature. Images are processed and not stored by us. <a href="https://ai.google.dev/terms" target="_blank" style="color:var(--blue);">ai.google.dev/terms</a></span>
+        </div>
+      </li>
+      <li class="tp-item">
+        <div class="tp-dot"></div>
+        <div>
+          <strong>Nager.Date API</strong>
+          <span>Fetches Philippine public holidays for calendar display. No personal data is sent to this service.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Data retention -->
+  <div class="section-card">
+    <h2><span class="icon">🗂️</span> Data Retention &amp; Deletion</h2>
+    <p>Your account data (profile, friends, friend chat messages, and developer support messages) is stored in Supabase for as long as you have an active account.</p>
+    <p>Your class schedule, tasks, and Esky AI chat history are stored <strong>locally on your device only</strong> — they are never uploaded to our servers. Clearing the App's data or uninstalling the App will remove this local data.</p>
+    <p>To request deletion of your account and all associated server-side data, contact us at <a href="mailto:ivancreatordeveloper@gmail.com" style="color:var(--blue);">ivancreatordeveloper@gmail.com</a>. We will delete your account and all associated data within 30 days. You may also submit a data deletion request via the <a href="https://eskwela-mu.vercel.app/eskwela.html" style="color:var(--blue);">Eskwela website</a>.</p>
+    <p>AI chat messages (Esky/Groq) and schedule import images are <strong>not stored by us</strong> — they are only sent to Groq/Gemini per request and are subject to their respective data retention policies.</p>
+  </div>
+
+  <!-- Security -->
+  <div class="section-card">
+    <h2><span class="icon">🔒</span> Security</h2>
+    <p>We use Supabase's built-in row-level security and authentication features to protect your data. All data transmitted between the App and our services is encrypted via HTTPS/TLS.</p>
+    <p>Schedule, task, and chat data stored locally on your device is protected by Android's standard app sandboxing — other apps cannot access it.</p>
+    <p>No method of transmission or storage is 100% secure, but we take reasonable steps to protect your information.</p>
+  </div>
+
+  <!-- Children -->
+  <div class="section-card">
+    <h2><span class="icon">👦</span> Children's Privacy</h2>
+    <p>Eskwela is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us and we will delete it promptly.</p>
+  </div>
+
+  <!-- Your Rights -->
+  <div class="section-card">
+    <h2><span class="icon">🛡️</span> Your Rights &amp; Choices</h2>
+    <p>You have the following rights regarding your personal data:</p>
+    <p>• <strong>Access</strong> — You can request a copy of the personal data we hold about you (name, email, friends list, chat messages stored in Supabase).<br>
+       • <strong>Correction</strong> — You can update your display name and profile at any time within the App.<br>
+       • <strong>Deletion</strong> — You can request deletion of your account and all associated server-side data by contacting us at <a href="mailto:ivancreatordeveloper@gmail.com" style="color:var(--blue);">ivancreatordeveloper@gmail.com</a>. We will complete the deletion within 30 days. Data stored locally on your device (schedule, tasks, Esky chat history) can be deleted at any time by clearing the App's data or uninstalling it.<br>
+       • <strong>Opt-out of AI processing</strong> — You can choose not to use the Esky AI tutor or the photo schedule import feature to avoid sending data to Groq or Gemini.<br>
+       • <strong>Manage permissions</strong> — You can revoke the App's permissions (e.g. camera) at any time through your Android device settings.</p>
+    <p>To exercise any of these rights, contact us at <a href="mailto:ivancreatordeveloper@gmail.com" style="color:var(--blue);">ivancreatordeveloper@gmail.com</a>.</p>
+  </div>
+
+  <!-- Changes -->
+  <div class="section-card">
+    <h2><span class="icon">🔄</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we do, we'll update the "Last updated" date at the top. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact-card">
+    <h2>Questions or Data Requests?</h2>
+    <p>If you have any questions about this Privacy Policy or want to request access, correction, or deletion of your data, reach out directly.</p>
+    <p style="font-size:14px; font-weight:800; opacity:1; margin-bottom:16px;">📧 <a href="mailto:ivancreatordeveloper@gmail.com" style="color:#fff;">ivancreatordeveloper@gmail.com</a></p>
+    <a href="https://eskwela-mu.vercel.app/eskwela.html">Contact via Eskwela Site</a>
+  </div>
+
+</main>
+
+  <!-- Data Safety -->
+  <div class="section-card">
+    <h2><span class="icon">📊</span> Google Play Data Safety</h2>
+    <p>In accordance with Google Play's Data Safety requirements, here is a summary of our declarations:</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Category</th><th>Collected</th><th>Shared with 3rd party</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Personal info (name, email)</strong></td><td>Yes — via Google OAuth</td><td>Yes — Supabase (service provider)</td></tr>
+        <tr><td><strong>Messages</strong></td><td>Yes — friend chat &amp; developer support chat</td><td>Yes — Supabase (service provider)</td></tr>
+        <tr><td><strong>App activity</strong></td><td>Yes — schedule &amp; tasks (device only)</td><td>No</td></tr>
+        <tr><td><strong>Photos / images</strong></td><td>Ephemeral — schedule import only</td><td>Yes — Google Gemini (service provider, ephemeral)</td></tr>
+        <tr><td><strong>AI chat messages</strong></td><td>Ephemeral — Esky AI only</td><td>Yes — Groq (service provider, ephemeral)</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px;">All third-party service providers (Supabase, Groq, Gemini) process data on our behalf and are not permitted to use it for their own purposes. No data is sold or used for advertising. This declaration is consistent with our Data Safety form in Google Play Console.</p>
+  </div>
+
+
+  <p>© 2026 Eskwela · Built for Filipino students 🇵🇭 · <a href="eskwela.html">Back to Home</a></p>
+</footer>
+
+</body>
+</html>
