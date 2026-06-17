@@ -5,7 +5,7 @@ export default async function handler(req) {
   const user_id = url.searchParams.get('user_id')
 
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   let fetchUrl = `${SUPABASE_URL}/rest/v1/feedback_with_email?order=created_at.asc`
   if (user_id) fetchUrl += `&user_id=eq.${user_id}`
