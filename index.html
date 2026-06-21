@@ -104,6 +104,17 @@ html, body {
 .stat-lbl { font-size: 10px; color: var(--text-light); margin-top: 2px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 
 #thread-list { flex: 1; overflow-y: auto; padding: 4px 8px 8px; }
+.tab-switch {
+  display: flex; gap: 4px; margin: 4px 12px 8px;
+  background: var(--nav-bg-light); border-radius: 12px; padding: 3px;
+}
+.tab-btn {
+  flex: 1; background: transparent; border: none; border-radius: 9px;
+  color: var(--text-light); font-size: 12px; font-weight: 800; font-family: var(--font);
+  padding: 8px 6px; cursor: pointer; transition: background 0.12s, color 0.12s;
+}
+.tab-btn.active { background: var(--blue); color: #fff; }
+
 .thread-section-label {
   display: flex; align-items: center; gap: 6px;
   padding: 8px 6px 5px; font-size: 10px; font-weight: 900;
@@ -187,13 +198,13 @@ html, body {
   position: relative; z-index: 1; display: flex; align-items: center; gap: 12px;
   padding: 14px 18px 14px; width: 100%;
 }
-#back-btn {
+#back-btn, #fr-back-btn {
   width: 34px; height: 34px; border-radius: 50%;
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
   color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
   transition: background 0.12s; flex-shrink: 0;
 }
-#back-btn:hover { background: rgba(255,255,255,0.2); }
+#back-btn:hover, #fr-back-btn:hover { background: rgba(255,255,255,0.2); }
 .chat-header-avatar {
   width: 42px; height: 42px; border-radius: 50%;
   background: linear-gradient(135deg, var(--blue-deep), var(--blue-light));
@@ -445,14 +456,69 @@ html, body {
 
 #overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9; }
 
+/* ── FEATURE REQUESTS PANEL ── */
+#fr-panel { display: none; flex: 1; flex-direction: column; height: 100%; overflow: hidden; }
+#fr-panel.visible { display: flex; }
+#fr-list { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.fr-card {
+  background: var(--card-white); border-radius: 16px; padding: 14px 16px;
+  border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(21,101,192,0.06);
+}
+.fr-top { display: flex; align-items: flex-start; gap: 10px; }
+.fr-score-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 36px; }
+.fr-score-val { font-size: 15px; font-weight: 900; color: var(--text-mid); }
+.fr-score-val.pos { color: var(--green); }
+.fr-score-val.neg { color: var(--red); }
+.fr-arrow { font-size: 10px; color: var(--text-light); }
+.fr-body { flex: 1; min-width: 0; }
+.fr-author { font-size: 12px; font-weight: 800; color: var(--blue-deep); }
+.fr-author.dev { color: var(--green); }
+.fr-desc { font-size: 14px; color: var(--text-dark); margin-top: 2px; line-height: 1.5; font-weight: 600; word-break: break-word; }
+.fr-time { font-size: 10.5px; color: var(--text-light); margin-top: 4px; font-weight: 600; }
+.fr-del-btn {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; border: none; cursor: pointer;
+  background: var(--ice-pale); color: var(--text-light); display: flex; align-items: center; justify-content: center;
+  transition: background 0.12s, color 0.12s;
+}
+.fr-del-btn:hover { background: rgba(214,59,59,0.15); color: var(--red); }
+
+.fr-replies { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+.fr-reply { display: flex; align-items: flex-start; gap: 8px; }
+.fr-reply-body { flex: 1; min-width: 0; background: var(--ice-white); border-radius: 12px; padding: 8px 11px; }
+.fr-reply-author { font-size: 11px; font-weight: 800; color: var(--blue-deep); }
+.fr-reply-author.dev { color: var(--green); }
+.fr-reply-content { font-size: 13px; color: var(--text-dark); margin-top: 1px; font-weight: 600; word-break: break-word; }
+.fr-reply-time { font-size: 10px; color: var(--text-light); margin-top: 3px; font-weight: 600; }
+
+.fr-reply-form { display: flex; gap: 8px; margin-top: 10px; }
+.fr-reply-input {
+  flex: 1; background: var(--ice-white); border: 1px solid var(--border); border-radius: 18px;
+  padding: 8px 14px; font-size: 13px; font-family: var(--font); font-weight: 600;
+  color: var(--text-dark); outline: none; transition: border-color 0.15s;
+}
+.fr-reply-input:focus { border-color: var(--blue-light); }
+.fr-reply-send {
+  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue-deep), var(--blue-light)); color: #fff;
+  display: flex; align-items: center; justify-content: center; transition: opacity 0.15s, transform 0.1s;
+}
+.fr-reply-send:disabled { opacity: 0.35; cursor: not-allowed; }
+.fr-reply-send:active:not(:disabled) { transform: scale(0.92); }
+
+.fr-empty-state {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; color: var(--text-light); font-size: 13px; font-weight: 600;
+}
+
 @media (max-width: 640px) {
   #sidebar { position: fixed; top: 0; left: 0; z-index: 10; transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.5); }
   #overlay.show { display: block; }
   #mobile-open-btn { display: block; }
   #back-btn { display: flex !important; }
+  #fr-back-btn { display: flex !important; }
 }
-@media (min-width: 641px) { #back-btn { display: none; } }
+@media (min-width: 641px) { #back-btn { display: none; } #fr-back-btn { display: none !important; } }
 
 /* ── PIN GATE ── */
 #pin-gate {
@@ -613,7 +679,12 @@ html, body {
       </div>
     </div>
 
-    <div class="thread-section-label">
+    <div class="tab-switch">
+      <button class="tab-btn active" id="tab-conversations">Conversations</button>
+      <button class="tab-btn" id="tab-features">Feature Requests</button>
+    </div>
+
+    <div class="thread-section-label" id="thread-section-label">
       <div class="thread-section-bar"></div>
       Conversations
     </div>
@@ -670,6 +741,25 @@ html, body {
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
         </button>
       </div>
+    </div>
+
+    <!-- FEATURE REQUESTS PANEL -->
+    <div id="fr-panel">
+      <header id="chat-header" style="min-height:80px;">
+        <div class="chat-header-bg"></div>
+        <div class="chat-header-shimmer"></div>
+        <div class="chat-header-content">
+          <button id="fr-back-btn" style="display:none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div style="flex:1;min-width:0">
+            <div class="chat-header-label">ESKWELA</div>
+            <div id="chat-header-name">Feature Requests</div>
+            <div id="chat-header-id" style="margin-top:1px;">Suggestions, votes, and replies from students</div>
+          </div>
+        </div>
+      </header>
+      <div id="fr-list"></div>
     </div>
   </main>
 </div>
@@ -729,6 +819,8 @@ let allMessages = []
 let selectedUser = null
 let selectedEmail = null
 let confirmCallback = null
+let currentTab = 'conversations' // 'conversations' | 'features'
+let frData = { requests: [], votes: [], replies: [] }
 
 function emailInitials(email) {
   if (!email) return '??'
@@ -800,6 +892,184 @@ async function fetchAll() {
     if (selectedUser) renderChat()
   } catch(e) { console.error(e) }
 }
+
+// ── FEATURE REQUESTS TAB ──────────────────────────────────────────────────
+
+async function fetchFeatureRequests() {
+  try {
+    const res = await fetch('/api/feature-requests')
+    frData = await res.json()
+    if (currentTab === 'features') renderFeatureRequests()
+  } catch(e) { console.error(e) }
+}
+
+function frScore(featureId) {
+  return frData.votes.filter(v => v.feature_id === featureId).reduce((s, v) => s + v.value, 0)
+}
+
+function frRepliesFor(featureId) {
+  return frData.replies.filter(r => r.feature_id === featureId)
+}
+
+function frFormatTime(iso) {
+  try { return new Date(iso).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) }
+  catch { return '' }
+}
+
+function renderFeatureRequests() {
+  const list = document.getElementById('fr-list')
+  const requests = frData.requests || []
+
+  document.getElementById('stat-users').textContent = requests.length
+  document.getElementById('stat-msgs').textContent = (frData.replies || []).length
+
+  if (requests.length === 0) {
+    list.innerHTML = `<div class="fr-empty-state"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>No feature requests yet.</div>`
+    return
+  }
+
+  const sorted = [...requests].sort((a, b) => frScore(b.id) - frScore(a.id) || b.created_at.localeCompare(a.created_at))
+
+  list.innerHTML = sorted.map(fr => {
+    const score = frScore(fr.id)
+    const replies = frRepliesFor(fr.id)
+    const scoreClass = score > 0 ? 'pos' : score < 0 ? 'neg' : ''
+    return `
+      <div class="fr-card" data-fid="${fr.id}">
+        <div class="fr-top">
+          <div class="fr-score-col">
+            <span class="fr-arrow">▲</span>
+            <span class="fr-score-val ${scoreClass}">${score}</span>
+            <span class="fr-arrow">▼</span>
+          </div>
+          <div class="fr-body">
+            <div class="fr-author">${escHtml(fr.author_name || 'Guest')}</div>
+            <div class="fr-desc">${escHtml(fr.description || '(no description)')}</div>
+            <div class="fr-time">${frFormatTime(fr.created_at)}</div>
+          </div>
+          <button class="fr-del-btn fr-del-request" data-id="${fr.id}" title="Delete request">
+            ${UNSEND_SVG}
+          </button>
+        </div>
+
+        ${replies.length ? `
+        <div class="fr-replies">
+          ${replies.map(r => `
+            <div class="fr-reply" data-rid="${r.id}">
+              <div class="fr-reply-body">
+                <div class="fr-reply-author ${r.author_name === 'DEVELOPER' ? 'dev' : ''}">${escHtml(r.author_name)}</div>
+                <div class="fr-reply-content">${escHtml(r.content)}</div>
+                <div class="fr-reply-time">${frFormatTime(r.created_at)}</div>
+              </div>
+              <button class="fr-del-btn fr-del-reply" data-id="${r.id}" title="Delete reply">
+                ${UNSEND_SVG}
+              </button>
+            </div>
+          `).join('')}
+        </div>` : ''}
+
+        <div class="fr-reply-form">
+          <input type="text" class="fr-reply-input" placeholder="Reply as DEVELOPER…" data-fid="${fr.id}" />
+          <button class="fr-reply-send" data-fid="${fr.id}" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          </button>
+        </div>
+      </div>
+    `
+  }).join('')
+
+  // Wire delete request buttons
+  list.querySelectorAll('.fr-del-request').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id
+      showConfirm({
+        iconClass: 'red',
+        iconSvg: UNSEND_SVG,
+        title: 'Delete Feature Request',
+        sub: 'This will permanently delete the request along with all its votes and replies.',
+        okLabel: 'Delete', okClass: 'red',
+        onOk: async () => {
+          await fetch(`/api/feature-requests?type=request&id=${id}`, { method: 'DELETE' })
+          await fetchFeatureRequests()
+          showToast('Feature request deleted', 'del')
+        }
+      })
+    })
+  })
+
+  // Wire delete reply buttons
+  list.querySelectorAll('.fr-del-reply').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id
+      showConfirm({
+        iconClass: 'red',
+        iconSvg: UNSEND_SVG,
+        title: 'Delete Reply',
+        sub: 'This reply will be permanently deleted.',
+        okLabel: 'Delete', okClass: 'red',
+        onOk: async () => {
+          await fetch(`/api/feature-requests?type=reply&id=${id}`, { method: 'DELETE' })
+          await fetchFeatureRequests()
+          showToast('Reply deleted', 'del')
+        }
+      })
+    })
+  })
+
+  // Wire reply inputs
+  list.querySelectorAll('.fr-reply-input').forEach(input => {
+    const sendBtn = list.querySelector(`.fr-reply-send[data-fid="${input.dataset.fid}"]`)
+    input.addEventListener('input', () => { sendBtn.disabled = input.value.trim() === '' })
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendBtn.click() } })
+  })
+  list.querySelectorAll('.fr-reply-send').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const fid = btn.dataset.fid
+      const input = list.querySelector(`.fr-reply-input[data-fid="${fid}"]`)
+      const content = input.value.trim()
+      if (!content) return
+      btn.disabled = true
+      try {
+        await fetch('/api/feature-requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ feature_id: fid, content })
+        })
+        await fetchFeatureRequests()
+        showToast('Reply sent', 'ok')
+      } catch(e) {
+        showToast('Failed to send reply', 'del')
+      }
+    })
+  })
+}
+
+function switchTab(tab) {
+  currentTab = tab
+  document.getElementById('tab-conversations').classList.toggle('active', tab === 'conversations')
+  document.getElementById('tab-features').classList.toggle('active', tab === 'features')
+  document.getElementById('thread-section-label').style.display = tab === 'conversations' ? 'flex' : 'none'
+  document.getElementById('thread-list').style.display = tab === 'conversations' ? 'block' : 'none'
+
+  if (tab === 'features') {
+    document.getElementById('empty-chat').style.display = 'none'
+    document.getElementById('chat-panel').classList.remove('visible')
+    document.getElementById('fr-panel').classList.add('visible')
+    renderFeatureRequests()
+  } else {
+    document.getElementById('fr-panel').classList.remove('visible')
+    renderThreads()
+    if (selectedUser) {
+      document.getElementById('chat-panel').classList.add('visible')
+    } else {
+      document.getElementById('empty-chat').style.display = 'flex'
+    }
+  }
+}
+
+document.getElementById('tab-conversations').addEventListener('click', () => switchTab('conversations'))
+document.getElementById('tab-features').addEventListener('click', () => switchTab('features'))
+document.getElementById('fr-back-btn').addEventListener('click', openSidebar)
 
 async function sendReply(text) {
   await fetch('/api/send', {
@@ -1076,7 +1346,9 @@ document.getElementById('search-input').addEventListener('input', renderThreads)
         updateDots(false)
         setTimeout(() => gate.classList.add('hidden'), 500)
         fetchAll()
+        fetchFeatureRequests()
         setInterval(fetchAll, 4000)
+        setInterval(fetchFeatureRequests, 4000)
       } else if (data.locked) {
         const until = Date.now() + (data.retryAfter || 3600) * 1000
         sessionStorage.setItem(LOCK_KEY, String(until))
@@ -1128,7 +1400,9 @@ document.getElementById('search-input').addEventListener('input', renderThreads)
   if (sessionStorage.getItem(TOKEN_KEY)) {
     gate.classList.add('hidden')
     fetchAll()
+    fetchFeatureRequests()
     setInterval(fetchAll, 4000)
+    setInterval(fetchFeatureRequests, 4000)
     return
   }
 

@@ -2,7 +2,8 @@
   "rewrites": [
     { "source": "/api/messages", "destination": "/api/messages" },
     { "source": "/api/send", "destination": "/api/send" },
-    { "source": "/api/admin-auth", "destination": "/api/admin-auth" }
+    { "source": "/api/admin-auth", "destination": "/api/admin-auth" },
+    { "source": "/api/feature-requests", "destination": "/api/feature-requests" }
   ],
   "routes": [
     { "src": "/", "dest": "/eskwela.html" },
