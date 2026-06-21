@@ -10,7 +10,7 @@ export default async function handler(req) {
   const { user_id, message } = await req.json()
 
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   const res = await fetch(`${SUPABASE_URL}/rest/v1/feedback_messages`, {
     method: 'POST',
