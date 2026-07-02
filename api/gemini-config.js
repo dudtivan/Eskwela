@@ -1,10 +1,23 @@
 import { createClient } from '@supabase/supabase-js'
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
+
+let supabase = null
+function getClient() {
+  if (supabase) return supabase
+  const url = process.env.SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) {
+    throw new Error(`Missing env vars — SUPABASE_URL: ${url ? 'set' : 'MISSING'}, SUPABASE_SERVICE_ROLE_KEY: ${key ? 'set' : 'MISSING'}`)
+  }
+  supabase = createClient(url, key)
+  return supabase
+}
 
 export default async function handler(req, res) {
   try {
+    const client = getClient()
+
     if (req.method === 'GET') {
-      const { data, error } = await supabase.from('gemini_config').select('*').eq('id', 1).single()
+      const { data, error } = await client.from('gemini_config').select('*').eq('id', 1).single()
       if (error) {
         console.error('gemini-config GET error:', error)
         return res.status(500).json({ error: error.message })
@@ -13,8 +26,6 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      // req.body can be undefined, a string, or an already-parsed object
-      // depending on how the request arrives — normalize it defensively.
       let body = req.body
       if (!body) {
         return res.status(400).json({ error: 'Missing request body' })
@@ -33,7 +44,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'No valid fields to update (expected enabled: boolean or hourly_limit: number)' })
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('gemini_config')
         .update(update)
         .eq('id', 1)
