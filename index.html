@@ -549,6 +549,19 @@ html, body {
 .gemini-limit-save:hover { opacity: 0.9; }
 .gemini-limit-save:active { transform: scale(0.97); }
 
+.gemini-log-list { display: flex; flex-direction: column; gap: 2px; max-height: 280px; overflow-y: auto; }
+.gemini-log-item {
+  display: flex; align-items: center; gap: 10px; padding: 9px 4px;
+  border-bottom: 1px solid var(--border); font-size: 13px;
+}
+.gemini-log-item:last-child { border-bottom: none; }
+.gemini-log-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0;
+}
+.gemini-log-text { flex: 1; color: var(--text-dark); font-weight: 700; }
+.gemini-log-time { color: var(--text-light); font-weight: 600; font-size: 11.5px; flex-shrink: 0; }
+.gemini-log-empty { color: var(--text-light); font-size: 13px; font-weight: 600; padding: 10px 4px; }
+
 @media (max-width: 640px) {
   #sidebar { position: fixed; top: 0; left: 0; z-index: 10; transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.5); }
@@ -847,14 +860,22 @@ html, body {
         <div class="fr-card">
           <div class="gemini-limit-title">Hourly Call Limit (global)</div>
           <div class="gemini-limit-row">
-            <input type="number" id="gemini-limit-input" min="1" />
+            <input type="number" id="gemini-limit-input" min="1" placeholder="50" />
             <button id="gemini-limit-save" class="gemini-limit-save">Save</button>
+          </div>
+        </div>
+
+        <div class="fr-card">
+          <div class="gemini-limit-title">Recent Scan Activity</div>
+          <div id="gemini-log-list" class="gemini-log-list">
+            <div class="gemini-log-empty">Loading…</div>
           </div>
         </div>
       </div>
     </div>
   </main>
 </div>
+
 
 <!-- BROADCAST MODAL -->
 <div id="modal-overlay">
@@ -1138,24 +1159,49 @@ function renderFeatureRequests() {
 
 // ── GEMINI API TAB ─────────────────────────────────────────────────────────
 
+function geminiLogTime(iso) {
+  try { return new Date(iso).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) }
+  catch { return '' }
+}
+
 async function fetchGeminiUsage() {
   try {
     const res = await fetch('/api/gemini-usage')
     const data = await res.json()
     document.getElementById('gemini-hour-count').textContent = data.last_hour
     document.getElementById('gemini-day-count').textContent = data.last_24h
+    renderGeminiLog(data.recent || [])
   } catch(e) { console.error(e) }
+}
+
+function renderGeminiLog(recent) {
+  const list = document.getElementById('gemini-log-list')
+  if (!recent.length) {
+    list.innerHTML = `<div class="gemini-log-empty">No scans yet.</div>`
+    return
+  }
+  list.innerHTML = recent.map(r => `
+    <div class="gemini-log-item">
+      <span class="gemini-log-dot"></span>
+      <span class="gemini-log-text">Schedule scanned</span>
+      <span class="gemini-log-time">${geminiLogTime(r.created_at)}</span>
+    </div>
+  `).join('')
 }
 
 async function fetchGeminiConfig() {
   try {
     const res = await fetch('/api/gemini-config')
+    if (!res.ok) throw new Error('config endpoint not available')
     const data = await res.json()
     const toggle = document.getElementById('gemini-enabled-toggle')
     toggle.checked = data.enabled
     updateGeminiToggleUI(data.enabled)
-    document.getElementById('gemini-limit-input').value = data.hourly_limit
-  } catch(e) { console.error(e) }
+    document.getElementById('gemini-limit-input').value = data.hourly_limit ?? 50
+  } catch(e) {
+    console.error(e)
+    document.getElementById('gemini-status-label').textContent = 'Could not load config — check /api/gemini-config'
+  }
 }
 
 function updateGeminiToggleUI(enabled) {
@@ -1166,17 +1212,23 @@ function updateGeminiToggleUI(enabled) {
 
 document.getElementById('gemini-toggle-track').addEventListener('click', async () => {
   const toggle = document.getElementById('gemini-enabled-toggle')
-  const newVal = !toggle.checked
+  const prevVal = toggle.checked
+  const newVal = !prevVal
   toggle.checked = newVal
   updateGeminiToggleUI(newVal)
   try {
-    await fetch('/api/gemini-config', {
+    const res = await fetch('/api/gemini-config', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ enabled: newVal })
     })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) throw new Error(data.error || `Server returned ${res.status}`)
     showToast(newVal ? 'Gemini scanning enabled' : 'Gemini scanning disabled', newVal ? 'ok' : 'del')
   } catch(e) {
-    showToast('Failed to update status', 'del')
+    console.error('Toggle save failed:', e)
+    toggle.checked = prevVal
+    updateGeminiToggleUI(prevVal)
+    showToast('Failed to update status: ' + e.message, 'del')
   }
 })
 
@@ -1184,13 +1236,16 @@ document.getElementById('gemini-limit-save').addEventListener('click', async () 
   const val = parseInt(document.getElementById('gemini-limit-input').value, 10)
   if (!val || val < 1) { showToast('Enter a valid limit', 'del'); return }
   try {
-    await fetch('/api/gemini-config', {
+    const res = await fetch('/api/gemini-config', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ hourly_limit: val })
     })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) throw new Error(data.error || `Server returned ${res.status}`)
     showToast('Hourly limit updated', 'ok')
   } catch(e) {
-    showToast('Failed to update limit', 'del')
+    console.error('Limit save failed:', e)
+    showToast('Failed to update limit: ' + e.message, 'del')
   }
 })
 
