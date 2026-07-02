@@ -510,6 +510,45 @@ html, body {
   gap: 8px; color: var(--text-light); font-size: 13px; font-weight: 600;
 }
 
+/* ── GEMINI PANEL ── */
+#gemini-panel { display: none; flex-direction: column; height: 100%; overflow: hidden; }
+#gemini-panel.visible { display: flex; }
+.gemini-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; }
+.gemini-stats-row { display: flex; gap: 12px; }
+.gemini-stat-card {
+  flex: 1; background: var(--card-white); border: 1px solid var(--border);
+  border-radius: 16px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(21,101,192,0.06);
+}
+.gemini-toggle-card {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.gemini-toggle-title { font-weight: 800; font-size: 14px; color: var(--text-dark); }
+.gemini-toggle-sub { font-size: 12px; color: var(--text-light); margin-top: 2px; font-weight: 600; }
+.gemini-switch { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0; }
+.gemini-switch input { opacity: 0; width: 0; height: 0; }
+.gemini-switch-track {
+  position: absolute; inset: 0; background: #ccc; border-radius: 99px; cursor: pointer; transition: background 0.15s;
+}
+.gemini-switch-knob {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff;
+  border-radius: 50%; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); pointer-events: none;
+}
+.gemini-limit-title { font-weight: 800; font-size: 14px; margin-bottom: 8px; color: var(--text-dark); }
+.gemini-limit-row { display: flex; gap: 8px; }
+#gemini-limit-input {
+  flex: 1; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--border);
+  font-family: var(--font); font-weight: 600; font-size: 14px; color: var(--text-dark); outline: none;
+}
+#gemini-limit-input:focus { border-color: var(--blue-light); }
+.gemini-limit-save {
+  background: linear-gradient(135deg, var(--blue-deep), var(--blue-light));
+  border: none; border-radius: 10px; color: #fff; padding: 0 18px;
+  font-size: 13px; font-weight: 800; font-family: var(--font); cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.gemini-limit-save:hover { opacity: 0.9; }
+.gemini-limit-save:active { transform: scale(0.97); }
+
 @media (max-width: 640px) {
   #sidebar { position: fixed; top: 0; left: 0; z-index: 10; transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); box-shadow: 8px 0 40px rgba(0,0,0,0.5); }
@@ -517,8 +556,9 @@ html, body {
   #mobile-open-btn { display: block; }
   #back-btn { display: flex !important; }
   #fr-back-btn { display: flex !important; }
+  #gemini-back-btn { display: flex !important; }
 }
-@media (min-width: 641px) { #back-btn { display: none; } #fr-back-btn { display: none !important; } }
+@media (min-width: 641px) { #back-btn { display: none; } #fr-back-btn { display: none !important; } #gemini-back-btn { display: none !important; } }
 
 /* ── PIN GATE ── */
 #pin-gate {
@@ -682,6 +722,7 @@ html, body {
     <div class="tab-switch">
       <button class="tab-btn active" id="tab-conversations">Conversations</button>
       <button class="tab-btn" id="tab-features">Feature Requests</button>
+      <button class="tab-btn" id="tab-gemini">Gemini API</button>
     </div>
 
     <div class="thread-section-label" id="thread-section-label">
@@ -761,6 +802,57 @@ html, body {
       </header>
       <div id="fr-list"></div>
     </div>
+
+    <!-- GEMINI API PANEL -->
+    <div id="gemini-panel">
+      <header id="chat-header" style="min-height:80px;">
+        <div class="chat-header-bg"></div>
+        <div class="chat-header-shimmer"></div>
+        <div class="chat-header-content">
+          <button id="gemini-back-btn" style="display:none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div style="flex:1;min-width:0">
+            <div class="chat-header-label">ESKWELA</div>
+            <div id="chat-header-name">Gemini API Control</div>
+            <div id="chat-header-id" style="margin-top:1px;">Usage tracking and rate limit settings</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="gemini-body">
+        <div class="gemini-stats-row">
+          <div class="gemini-stat-card">
+            <div class="stat-val" id="gemini-hour-count" style="color:var(--blue-deep);font-size:24px;">0</div>
+            <div class="stat-lbl">Calls (last hour)</div>
+          </div>
+          <div class="gemini-stat-card">
+            <div class="stat-val" id="gemini-day-count" style="color:var(--green);font-size:24px;">0</div>
+            <div class="stat-lbl">Calls (last 24h)</div>
+          </div>
+        </div>
+
+        <div class="fr-card gemini-toggle-card">
+          <div>
+            <div class="gemini-toggle-title">Schedule Scanner Status</div>
+            <div class="gemini-toggle-sub" id="gemini-status-label">Loading…</div>
+          </div>
+          <label class="gemini-switch">
+            <input type="checkbox" id="gemini-enabled-toggle">
+            <span class="gemini-switch-track" id="gemini-toggle-track"></span>
+            <span class="gemini-switch-knob" id="gemini-toggle-knob"></span>
+          </label>
+        </div>
+
+        <div class="fr-card">
+          <div class="gemini-limit-title">Hourly Call Limit (global)</div>
+          <div class="gemini-limit-row">
+            <input type="number" id="gemini-limit-input" min="1" />
+            <button id="gemini-limit-save" class="gemini-limit-save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
@@ -819,7 +911,7 @@ let allMessages = []
 let selectedUser = null
 let selectedEmail = null
 let confirmCallback = null
-let currentTab = 'conversations' // 'conversations' | 'features'
+let currentTab = 'conversations' // 'conversations' | 'features' | 'gemini'
 let frData = { requests: [], votes: [], replies: [] }
 
 function emailInitials(email) {
@@ -1044,20 +1136,86 @@ function renderFeatureRequests() {
   })
 }
 
+// ── GEMINI API TAB ─────────────────────────────────────────────────────────
+
+async function fetchGeminiUsage() {
+  try {
+    const res = await fetch('/api/gemini-usage')
+    const data = await res.json()
+    document.getElementById('gemini-hour-count').textContent = data.last_hour
+    document.getElementById('gemini-day-count').textContent = data.last_24h
+  } catch(e) { console.error(e) }
+}
+
+async function fetchGeminiConfig() {
+  try {
+    const res = await fetch('/api/gemini-config')
+    const data = await res.json()
+    const toggle = document.getElementById('gemini-enabled-toggle')
+    toggle.checked = data.enabled
+    updateGeminiToggleUI(data.enabled)
+    document.getElementById('gemini-limit-input').value = data.hourly_limit
+  } catch(e) { console.error(e) }
+}
+
+function updateGeminiToggleUI(enabled) {
+  document.getElementById('gemini-toggle-track').style.background = enabled ? '#1E8A5E' : '#ccc'
+  document.getElementById('gemini-toggle-knob').style.transform = enabled ? 'translateX(22px)' : 'translateX(0)'
+  document.getElementById('gemini-status-label').textContent = enabled ? 'Active — accepting scan requests' : 'Disabled — scans are blocked'
+}
+
+document.getElementById('gemini-toggle-track').addEventListener('click', async () => {
+  const toggle = document.getElementById('gemini-enabled-toggle')
+  const newVal = !toggle.checked
+  toggle.checked = newVal
+  updateGeminiToggleUI(newVal)
+  try {
+    await fetch('/api/gemini-config', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ enabled: newVal })
+    })
+    showToast(newVal ? 'Gemini scanning enabled' : 'Gemini scanning disabled', newVal ? 'ok' : 'del')
+  } catch(e) {
+    showToast('Failed to update status', 'del')
+  }
+})
+
+document.getElementById('gemini-limit-save').addEventListener('click', async () => {
+  const val = parseInt(document.getElementById('gemini-limit-input').value, 10)
+  if (!val || val < 1) { showToast('Enter a valid limit', 'del'); return }
+  try {
+    await fetch('/api/gemini-config', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ hourly_limit: val })
+    })
+    showToast('Hourly limit updated', 'ok')
+  } catch(e) {
+    showToast('Failed to update limit', 'del')
+  }
+})
+
+document.getElementById('gemini-back-btn').addEventListener('click', openSidebar)
+
 function switchTab(tab) {
   currentTab = tab
   document.getElementById('tab-conversations').classList.toggle('active', tab === 'conversations')
   document.getElementById('tab-features').classList.toggle('active', tab === 'features')
+  document.getElementById('tab-gemini').classList.toggle('active', tab === 'gemini')
   document.getElementById('thread-section-label').style.display = tab === 'conversations' ? 'flex' : 'none'
   document.getElementById('thread-list').style.display = tab === 'conversations' ? 'block' : 'none'
 
+  document.getElementById('empty-chat').style.display = 'none'
+  document.getElementById('chat-panel').classList.remove('visible')
+  document.getElementById('fr-panel').classList.remove('visible')
+  document.getElementById('gemini-panel').classList.remove('visible')
+
   if (tab === 'features') {
-    document.getElementById('empty-chat').style.display = 'none'
-    document.getElementById('chat-panel').classList.remove('visible')
     document.getElementById('fr-panel').classList.add('visible')
     renderFeatureRequests()
+  } else if (tab === 'gemini') {
+    document.getElementById('gemini-panel').classList.add('visible')
+    fetchGeminiUsage(); fetchGeminiConfig()
   } else {
-    document.getElementById('fr-panel').classList.remove('visible')
     renderThreads()
     if (selectedUser) {
       document.getElementById('chat-panel').classList.add('visible')
@@ -1069,6 +1227,7 @@ function switchTab(tab) {
 
 document.getElementById('tab-conversations').addEventListener('click', () => switchTab('conversations'))
 document.getElementById('tab-features').addEventListener('click', () => switchTab('features'))
+document.getElementById('tab-gemini').addEventListener('click', () => switchTab('gemini'))
 document.getElementById('fr-back-btn').addEventListener('click', openSidebar)
 
 async function sendReply(text) {
@@ -1326,6 +1485,16 @@ document.getElementById('search-input').addEventListener('input', renderThreads)
     document.querySelectorAll('.pin-key').forEach(b => b.disabled = on)
   }
 
+  function startPolling() {
+    fetchAll()
+    fetchFeatureRequests()
+    fetchGeminiUsage()
+    fetchGeminiConfig()
+    setInterval(fetchAll, 4000)
+    setInterval(fetchFeatureRequests, 4000)
+    setInterval(fetchGeminiUsage, 4000)
+  }
+
   async function submitPin() {
     if (busy || pinBuffer.length < 4) return
     busy = true
@@ -1345,10 +1514,7 @@ document.getElementById('search-input').addEventListener('input', renderThreads)
         sessionStorage.setItem(TOKEN_KEY, data.token || 'ok')
         updateDots(false)
         setTimeout(() => gate.classList.add('hidden'), 500)
-        fetchAll()
-        fetchFeatureRequests()
-        setInterval(fetchAll, 4000)
-        setInterval(fetchFeatureRequests, 4000)
+        startPolling()
       } else if (data.locked) {
         const until = Date.now() + (data.retryAfter || 3600) * 1000
         sessionStorage.setItem(LOCK_KEY, String(until))
@@ -1399,10 +1565,7 @@ document.getElementById('search-input').addEventListener('input', renderThreads)
   // Check if already authenticated this session
   if (sessionStorage.getItem(TOKEN_KEY)) {
     gate.classList.add('hidden')
-    fetchAll()
-    fetchFeatureRequests()
-    setInterval(fetchAll, 4000)
-    setInterval(fetchFeatureRequests, 4000)
+    startPolling()
     return
   }
 
